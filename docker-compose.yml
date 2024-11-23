@@ -1,0 +1,22 @@
+services:
+  spoolman:
+    image: ghcr.io/donkie/spoolman:latest
+    restart: unless-stopped
+    networks:
+      - frontend
+    volumes:
+      - ${MOUNT_ROOT}/spoolman:/home/app/.local/share/spoolman:rw'
+    environment:
+      - TZ=${TZ}
+      - SPOOLMAN_PORT=7912
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.spoolman.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.spoolman.entrypoints=websecure
+      - traefik.http.routers.spoolman.tls=true
+      - traefik.http.services.spoolman-service.loadbalancer.server.port=7912
+      - com.centurylinklabs.watchtower.enable=true
+
+networks:
+  frontend:
+    external: true
