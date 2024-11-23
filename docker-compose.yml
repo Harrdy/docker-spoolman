@@ -5,7 +5,7 @@ services:
     networks:
       - frontend
     volumes:
-      - ${MOUNT_ROOT}/spoolman:/home/app/.local/share/spoolman:rw'
+      - ${MOUNT_ROOT}/spoolman:/home/app/.local/share/spoolman:rw
     environment:
       - TZ=${TZ}
       - SPOOLMAN_PORT=7912
